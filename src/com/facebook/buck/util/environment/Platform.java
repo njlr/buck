@@ -18,7 +18,6 @@ package com.facebook.buck.util.environment;
 import java.util.Optional;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.FileSystems;
 
 /**
  * Platform on which Buck is currently running. Limited to the OS kind, e.g. Windows or a kind of

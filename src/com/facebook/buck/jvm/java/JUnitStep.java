@@ -130,6 +130,7 @@ public class JUnitStep extends ShellStep {
                   }
                   break;
                 }
+              case MINGW:
               case WINDOWS:
                 {
                   Field field = process.getClass().getDeclaredField("handle");

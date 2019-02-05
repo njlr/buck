@@ -60,6 +60,7 @@ public interface ArchiverProvider {
         archiverType = Type.BSD;
         break;
       case LINUX:
+      case MINGW:
         archiverType = Type.GNU;
         break;
       case WINDOWS:

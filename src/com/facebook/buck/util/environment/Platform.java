@@ -15,8 +15,10 @@
  */
 package com.facebook.buck.util.environment;
 
+import java.util.Optional;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.FileSystems;
 
 /**
  * Platform on which Buck is currently running. Limited to the OS kind, e.g. Windows or a kind of
@@ -26,6 +28,7 @@ public enum Platform {
   LINUX("Linux", "linux", PlatformType.UNIX),
   MACOS("OS X", "darwin", PlatformType.UNIX),
   WINDOWS("Windows", "windows", PlatformType.WINDOWS),
+  MINGW("MinGW", "mingw", PlatformType.UNIX),
   FREEBSD("FreeBSD", "freebsd", PlatformType.UNIX),
   UNKNOWN("Unknown", "unknown", PlatformType.UNKNOWN);
 
@@ -71,8 +74,16 @@ public enum Platform {
         "don't know null special file for OS: " + System.getProperty("os.name"));
   }
 
+  private static boolean isMingw() {
+    return Optional.ofNullable(System.getenv("MSYSTEM"))
+      .orElse("")
+      .toLowerCase()
+      .contains("mingw");
+  }
+
   public static Platform detect() {
     String platformName = System.getProperty("os.name");
+
     if (platformName == null) {
       return UNKNOWN;
     } else if (platformName.startsWith("Linux")) {
@@ -80,6 +91,9 @@ public enum Platform {
     } else if (platformName.startsWith("Mac OS")) {
       return MACOS;
     } else if (platformName.startsWith("Windows")) {
+      if (isMingw()) {
+        return MINGW;
+      }
       return WINDOWS;
     } else if (platformName.startsWith("FreeBSD")) {
       return FREEBSD;

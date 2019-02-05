@@ -104,3 +104,9 @@ elif platform.system() == "FreeBSD":
     libc = ctypes.CDLL("libc.so.7", use_errno=True)
     clock_gettime = libc.clock_gettime
     set_posix_time_nanos(clock_gettime, CLOCK_MONOTONIC)
+elif "MINGW" in platform.system():
+    def _monotonic_time_nanos_mingw():
+        # TODO
+        return int(0)
+
+    monotonic_time_nanos = _monotonic_time_nanos_mingw

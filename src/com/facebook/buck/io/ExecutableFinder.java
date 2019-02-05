@@ -89,7 +89,7 @@ public class ExecutableFinder {
 
   public Optional<Path> getOptionalExecutable(
       Path suggestedExecutable,
-      ImmutableCollection<Path> path,
+      ImmutableCollection<Path> paths,
       ImmutableCollection<String> fileSuffixes) {
 
     // Fast path out of here.
@@ -103,7 +103,7 @@ public class ExecutableFinder {
                 ImmutableSet.of(),
                 suggestedExecutable.toString(),
                 ImmutableSet.copyOf(fileSuffixes)),
-            path,
+            paths,
             ExecutableFinder::isExecutable);
     LOG.debug("Executable '%s' mapped to '%s'", suggestedExecutable, executable);
 
@@ -192,7 +192,7 @@ public class ExecutableFinder {
 
   public static ImmutableSet<String> getExecutableSuffixes(
       Platform platform, ImmutableMap<String, String> env) {
-    if (platform == Platform.WINDOWS) {
+    if (platform == Platform.WINDOWS || platform == Platform.MINGW) {
       String pathext = env.get("PATHEXT");
       if (pathext == null) {
         return DEFAULT_WINDOWS_EXTENSIONS;

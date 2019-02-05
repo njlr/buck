@@ -1,7 +1,8 @@
 # Ant
 /ant-out/
 
-# IntelliJ build
+# IntelliJ
+*.iml
 /intellij-out/
 
 # Buck

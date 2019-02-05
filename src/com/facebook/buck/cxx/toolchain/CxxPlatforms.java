@@ -219,6 +219,7 @@ public class CxxPlatforms {
         .put(Platform.MACOS.getAutoconfName(), InternalFlavor.of("macosx-x86_64"))
         .put(Platform.WINDOWS.getAutoconfName(), InternalFlavor.of("windows-x86_64"))
         .put(Platform.FREEBSD.getAutoconfName(), InternalFlavor.of("freebsd-x86_64"))
+        .put(Platform.MINGW.getAutoconfName(), InternalFlavor.of("mingw-x86_64"))
         .build();
   }
 

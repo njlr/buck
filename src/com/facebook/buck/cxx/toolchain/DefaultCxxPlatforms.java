@@ -158,6 +158,24 @@ public class DefaultCxxPlatforms {
                     getHashedFileTool(config, DEFAULT_UNIX_RANLIB, DEFAULT_RANLIB, env)));
         picTypeForSharedLinking = PicType.PIC;
         break;
+      case MINGW:
+        sharedLibraryExtension = "so";
+        sharedLibraryVersionedExtensionFormat = "so.%s";
+        staticLibraryExtension = "a";
+        objectFileExtension = "o";
+        defaultCFrontend = getExecutablePath("gcc", DEFAULT_C_FRONTEND, env);
+        defaultCxxFrontend = getExecutablePath("g++", DEFAULT_CXX_FRONTEND, env);
+        defaultLinker = defaultCxxFrontend;
+        linkerType = LinkerProvider.Type.GNU;
+        archiver = new GnuArchiver(getHashedFileTool(config, "ar", DEFAULT_AR, env));
+        compilerSanitizer = new PrefixMapDebugPathSanitizer(".", ImmutableBiMap.of());
+        binaryExtension = Optional.empty();
+        ranlib =
+            Optional.of(
+                new ConstantToolProvider(
+                    getHashedFileTool(config, DEFAULT_UNIX_RANLIB, DEFAULT_RANLIB, env)));
+        picTypeForSharedLinking = PicType.PIC;
+        break;
         // $CASES-OMITTED$
       default:
         throw new RuntimeException(String.format("Unsupported platform: %s", platform));

@@ -64,6 +64,7 @@ public class DefaultToolchainProvider extends BaseToolchainProvider {
                   return createToolchain(toolchainFactories.get(toolchainName));
                 }
               });
+
   private final ConcurrentHashMap<String, ToolchainInstantiationException> failedToolchains =
       new ConcurrentHashMap<>();
 
